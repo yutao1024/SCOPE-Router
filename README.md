@@ -54,14 +54,16 @@ The main training objective uses:
 
 ## Installation
 
-Create an environment with Python 3.10 or newer, then install dependencies:
-
 ```bash
+git clone https://github.com/yutao1024/SCOPE-Router.git
+cd SCOPE-Router
+
+conda create -n scope-router python=3.10 -y
+conda activate scope-router
+
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
-For GPU feature extraction and router training, install a PyTorch build matching
-your CUDA version before installing the remaining dependencies.
 
 ## Dataset Format
 
