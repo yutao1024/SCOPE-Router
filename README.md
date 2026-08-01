@@ -1,13 +1,24 @@
 # SCOPE-Router
 
-SCOPE-Router is a cost-aware, profile-based router for vision-language models.
-It routes each query to a candidate VLM by matching a query embedding against
-model profiles built from a small calibration set.
+SCOPE-Router is a cost-aware, open-set router for vision-language models. It
+routes each query to a candidate VLM by matching the query embedding against
+reusable model profiles built from a small calibration set, allowing new
+candidate models to be added by profiling them without retraining the router.
 
 The repository contains the SCOPE-Router implementation, feature extraction and
 calibration utilities, evaluation scripts, and the VLM-ExecRouterBench data
-generation/evaluation pipeline. Large benchmark artifacts, matrices,
-embeddings, checkpoints, logs, and outputs are intentionally excluded.
+generation/evaluation pipeline.
+
+## Citation
+
+```bibtex
+@article{scope-router,
+  title  = {SCOPE-Router: Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models},
+  author = {Anonymous Authors},
+  journal = {arXiv preprint},
+  year   = {2026}
+}
+```
 
 ## Method
 
@@ -75,8 +86,6 @@ EMBEDDINGS/text/<encoder>.parquet
 EMBEDDINGS/vision/<encoder>.parquet
 ```
 
-The repository does not ship these large generated artifacts.
-
 ## Feature Extraction
 
 The default paper setting uses BAAI/bge-m3 for text and facebook/dinov2-large
@@ -137,11 +146,6 @@ Codex / Claude Code / OpenClaw request
 -> normal provider mapping and upstream forwarding continue
 ```
 
-This is the same integration shape as agent-as-a-router style tools. SCOPE does
-not launch Codex, Claude Code, OpenClaw, or mini-swe-agent itself. It runs as a
-small local HTTP service that a proxy hook calls before the request is sent
-upstream.
-
 Start the service:
 
 ```bash
@@ -196,13 +200,3 @@ mapping. For Claude Code Router, `claude-code-router/` adds a gateway-level
 evaluation utilities used by the project. See
 `VLM-ExecRouterBench/README.md` and the documents under
 `VLM-ExecRouterBench/docs/` for the benchmark-side workflow.
-
-## Generated Files
-
-The `.gitignore` excludes large and generated files by default, including
-benchmark data, matrices, embeddings, checkpoints, reports, outputs, and logs.
-Keep these artifacts outside version control or publish them separately.
-
-## License
-
-This project is released under the license in `LICENSE`.
