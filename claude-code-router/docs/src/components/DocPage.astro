@@ -1,0 +1,317 @@
+---
+import DocsLayout from "../layouts/DocsLayout.astro";
+import { docsContent, type DocPageKey, type Locale } from "../i18n/content";
+import * as enConfigurationDoc from "../content/docs/en/configuration.md";
+import * as enGuidesDoc from "../content/docs/en/guides.md";
+import * as enDoc from "../content/docs/en/index.md";
+import * as enTroubleshootingDoc from "../content/docs/en/troubleshooting.md";
+import * as zhConfigurationDoc from "../content/docs/zh/configuration.md";
+import * as zhGuidesDoc from "../content/docs/zh/guides.md";
+import * as zhDoc from "../content/docs/zh/index.md";
+import * as zhTroubleshootingDoc from "../content/docs/zh/troubleshooting.md";
+import { Check, Copy } from "lucide-astro";
+
+interface Props {
+  locale: Locale;
+  pageKey?: DocPageKey;
+  doc?: any;
+  activeSidebarItem?: string;
+}
+
+const docsByLocale = {
+  zh: {
+    documentation: zhDoc,
+    guides: zhGuidesDoc,
+    configuration: zhConfigurationDoc,
+    troubleshooting: zhTroubleshootingDoc,
+  },
+  en: {
+    documentation: enDoc,
+    guides: enGuidesDoc,
+    configuration: enConfigurationDoc,
+    troubleshooting: enTroubleshootingDoc,
+  },
+} satisfies Record<Locale, Record<DocPageKey, any>>;
+
+const {
+  locale,
+  pageKey: pageKeyProp = "documentation",
+  doc: docProp,
+  activeSidebarItem: activeSidebarItemProp,
+} = Astro.props;
+const content = docsContent[locale];
+const pages = content.pages as Record<DocPageKey, any>;
+const pageKey = pageKeyProp;
+const pageContent = pages[pageKey] ?? pages.documentation;
+const sectionDoc = docsByLocale[locale][pageKey] ?? docsByLocale[locale].documentation;
+const sectionHref =
+  content.navItems.find((item) => item.pageKey === pageKey)?.href ??
+  (locale === "en" ? "/en/" : "/");
+const isSectionDoc = !docProp || docProp === sectionDoc;
+const doc = docProp ?? sectionDoc;
+const { Content, frontmatter } = doc;
+const allHeadings = doc.getHeadings();
+const headings = allHeadings.filter((heading) => heading.depth === 2);
+const isExplicitHref = (value: string) =>
+  value.startsWith("#") ||
+  value.startsWith("/") ||
+  value.startsWith("//") ||
+  /^[a-z][a-z\d+.-]*:/i.test(value);
+
+const getHeadingLinks = (targetDoc: any, baseHref: string, useLocalHashes: boolean) => {
+  const links = new Map<string, string>();
+
+  for (const heading of targetDoc.getHeadings()) {
+    if (!links.has(heading.text)) {
+      links.set(
+        heading.text,
+        useLocalHashes ? `#${heading.slug}` : `${baseHref}#${heading.slug}`
+      );
+    }
+  }
+
+  return links;
+};
+const sectionHeadingLinks = getHeadingLinks(sectionDoc, sectionHref, isSectionDoc);
+const resolveDocTarget = (target?: string, headingLinks = sectionHeadingLinks) => {
+  if (!target) return "#";
+  if (isExplicitHref(target)) return target;
+  return headingLinks.get(target) ?? "#";
+};
+const navItems = content.navItems.map((item) => {
+  return {
+    ...item,
+    active: item.pageKey === pageKey,
+  };
+});
+const sidebarLabels = new Set<string>();
+
+for (const group of pageContent.sidebarGroups) {
+  for (const item of group.items) {
+    sidebarLabels.add(item);
+
+    for (const child of pageContent.sidebarChildren[item] ?? []) {
+      sidebarLabels.add(child);
+    }
+  }
+}
+
+const sidebarLinks = Object.fromEntries(
+  Array.from(sidebarLabels).map((label) => [
+    label,
+    resolveDocTarget(
+      pageContent.sidebarLinks[label] ??
+        pageContent.sidebarTargets[label] ??
+        label
+    ),
+  ])
+);
+const sidebarNavItems = content.navItems.filter((navItem) => navItem.pageKey !== "documentation");
+const sidebarTree = sidebarNavItems.map((navItem, index) => {
+  const navPageKey = navItem.pageKey as DocPageKey;
+  const navPageContent = pages[navPageKey] ?? pages.documentation;
+  const navSectionDoc = docsByLocale[locale][navPageKey] ?? docsByLocale[locale].documentation;
+  const navHref = navItem.href ?? "#";
+  const navIsCurrentSection = navPageKey === pageKey && isSectionDoc;
+  const navHeadingLinks = getHeadingLinks(navSectionDoc, navHref, navIsCurrentSection);
+  const navActive = navPageKey === pageKey;
+  const openByDefault = pageKey === "documentation" && index === 0;
+
+  return {
+    label: navItem.label,
+    href: navHref,
+    active: navActive,
+    open: navActive || openByDefault,
+    groups: navPageContent.sidebarGroups.map((group) => ({
+      ...group,
+      active: navActive && group.active,
+      items: group.items.map((item) => {
+        const childItems = navPageContent.sidebarChildren[item] ?? [];
+        const itemHref = resolveDocTarget(
+          navPageContent.sidebarLinks[item] ??
+            navPageContent.sidebarTargets[item] ??
+            item,
+          navHeadingLinks
+        );
+
+        const children = childItems.map((child) => ({
+          label: child,
+          href: resolveDocTarget(
+            navPageContent.sidebarLinks[child] ??
+              navPageContent.sidebarTargets[child] ??
+              child,
+            navHeadingLinks
+          ),
+          active: navActive && activeSidebarItemProp === child,
+        }));
+
+        return {
+          label: item,
+          href: itemHref,
+          active: navActive && (activeSidebarItemProp ? activeSidebarItemProp === item : group.active === item),
+          children,
+        };
+      }),
+    })),
+  };
+});
+const tocItems = headings.map((heading) => ({
+  label: heading.text,
+  href: `#${heading.slug}`,
+}));
+const pageMarkdown = doc.rawContent();
+---
+
+<DocsLayout
+  title={frontmatter.pageTitle ?? content.pageTitle}
+  htmlLang={content.htmlLang}
+  locale={locale}
+  languageLabel={content.languageLabel}
+  languageOptions={content.languageOptions}
+  navItems={navItems}
+  sidebarTree={sidebarTree}
+  sidebarGroups={pageContent.sidebarGroups}
+  expandableSidebarItems={pageContent.expandableSidebarItems}
+  sidebarChildren={pageContent.sidebarChildren}
+  sidebarLinks={sidebarLinks}
+  tocTitle={content.tocTitle}
+  tocItems={tocItems}
+  ui={content.ui}
+>
+  <article class="doc-article">
+    <header class="article-header">
+      <div>
+        <p class="eyebrow">{frontmatter.eyebrow}</p>
+        <h1>{frontmatter.title}</h1>
+        <p class="lead">{frontmatter.lead}</p>
+      </div>
+      <button class="copy-page" type="button" data-copy-page>
+        <Copy size={18} aria-hidden="true" />
+        <span data-copy-label>{content.ui.copyPage}</span>
+      </button>
+    </header>
+
+    <div class="doc-markdown" data-markdown-content>
+      <Content />
+    </div>
+  </article>
+
+  <template data-code-icon-template>
+    <span class="copy-icon" aria-hidden="true">
+      <Copy size={18} />
+    </span>
+    <span class="success-icon" aria-hidden="true">
+      <Check size={18} />
+    </span>
+  </template>
+
+  <script define:vars={{
+    pageMarkdown,
+    copyPageLabel: content.ui.copyPage,
+    copiedLabel: content.ui.copied,
+    copyFailedLabel: content.ui.copyFailed,
+    copyCodeLabel: content.ui.copyCode,
+    copiedCodeLabel: content.ui.copiedCode,
+    copyCodeFailedLabel: content.ui.copyCodeFailed,
+  }}>
+    const copyButton = document.querySelector("[data-copy-page]");
+    const copyLabel = document.querySelector("[data-copy-label]");
+
+    const writeClipboard = async (text) => {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    };
+
+    copyButton?.addEventListener("click", async () => {
+      try {
+        await writeClipboard(pageMarkdown);
+        copyButton.classList.add("copied");
+        if (copyLabel) copyLabel.textContent = copiedLabel;
+      } catch {
+        if (copyLabel) copyLabel.textContent = copyFailedLabel;
+      }
+
+      window.setTimeout(() => {
+        copyButton.classList.remove("copied");
+        if (copyLabel) copyLabel.textContent = copyPageLabel;
+      }, 1800);
+    });
+
+    const codeIconTemplate = document.querySelector("[data-code-icon-template]");
+    const buildCopyIcon = () => codeIconTemplate instanceof HTMLTemplateElement
+      ? codeIconTemplate.innerHTML
+      : "";
+
+    document.querySelectorAll("[data-markdown-content] pre.astro-code").forEach((pre) => {
+      if (!(pre instanceof HTMLElement) || pre.closest(".code-panel")) return;
+
+      const language = pre.dataset.language || "text";
+      const panel = document.createElement("div");
+      panel.className = "code-panel markdown-code-panel";
+      panel.setAttribute("aria-label", language);
+
+      const toolbar = document.createElement("div");
+      toolbar.className = "code-toolbar";
+
+      const title = document.createElement("span");
+      title.textContent = language === "text" ? "text" : language;
+
+      const button = document.createElement("button");
+      button.className = "code-copy";
+      button.type = "button";
+      button.dataset.copyCode = "";
+      button.setAttribute("aria-label", copyCodeLabel);
+      button.innerHTML = buildCopyIcon();
+
+      const template = document.createElement("template");
+      template.dataset.codeSource = "";
+      template.textContent = pre.innerText.trimEnd();
+
+      toolbar.append(title, button);
+      panel.append(toolbar, template);
+      pre.replaceWith(panel);
+      panel.append(pre);
+    });
+
+    document.addEventListener("click", async (event) => {
+      const button = event.target instanceof Element
+        ? event.target.closest("[data-copy-code]")
+        : null;
+
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      const panel = button.closest(".code-panel");
+      const source = panel?.querySelector("[data-code-source]");
+      const text = source instanceof HTMLTemplateElement
+        ? source.content.textContent ?? ""
+        : source?.textContent ?? "";
+
+      try {
+        if (!text) throw new Error("No code content to copy");
+        await writeClipboard(text);
+        button.classList.add("copied");
+        button.setAttribute("aria-label", copiedCodeLabel);
+      } catch {
+        button.classList.add("copy-failed");
+        button.setAttribute("aria-label", copyCodeFailedLabel);
+      }
+
+      window.setTimeout(() => {
+        button.classList.remove("copied", "copy-failed");
+        button.setAttribute("aria-label", copyCodeLabel);
+      }, 1600);
+    });
+  </script>
+</DocsLayout>

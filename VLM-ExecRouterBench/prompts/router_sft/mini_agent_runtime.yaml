@@ -1,0 +1,51 @@
+# RouterSFT mini-agent runtime prompt registry.
+#
+# Runtime code resolves templates by logical name, then reads the matching
+# Markdown section delimited by:
+#
+#   <!-- template: section_name -->
+#   ...
+#   <!-- /template -->
+#
+# Template variables use Python str.format_map. Keep literal braces out of
+# template text unless they are one of the variables documented here.
+version: 1
+templates:
+  common.available_tools:
+    path: prompts/router_sft/common.md
+    section: available_tools
+    variables:
+      - tool_lines
+
+  browsecomp_plus.system:
+    path: prompts/router_sft/browsecomp_plus.md
+    section: system
+    variables: []
+
+  browsecomp_plus.tool_policy:
+    path: prompts/router_sft/browsecomp_plus.md
+    section: tool_policy
+    variables:
+      - max_loop_turns
+
+  browsecomp_plus.search_note:
+    path: prompts/router_sft/browsecomp_plus.md
+    section: search_note
+    variables:
+      - call_index
+      - max_search_calls
+      - loop_turn
+      - max_loop_turns
+      - remaining_loop_turns
+
+  browsecomp_plus.final_search_note:
+    path: prompts/router_sft/browsecomp_plus.md
+    section: final_search_note
+    variables:
+      - loop_turn
+      - max_loop_turns
+
+  browsecomp_plus.refine_search:
+    path: prompts/router_sft/browsecomp_plus.md
+    section: refine_search
+    variables: []

@@ -1,0 +1,23 @@
+# Synced with setup_env.sh (pip install list)
+numpy
+pandas
+tqdm
+pyyaml
+openpyxl
+scipy
+transformers
+pyarrow
+scikit-learn
+torch
+torchvision
+torchaudio
+pillow
+tiktoken
+sentence-transformers
+timm
+psutil
+matplotlib
+seaborn
+adjustText
+
+

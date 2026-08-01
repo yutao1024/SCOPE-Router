@@ -1,0 +1,119 @@
+# VLM Router Benchmark - Dataset configuration
+# Dataset metadata based on VLMEvalKit
+
+datasets:
+  - name: MMMU_DEV_VAL
+    split: validation
+    modality: ["image", "text"]
+    task: "vqa_mc"
+    description: "Multimodal multi-task understanding (dev + validation)"
+  
+  - name: MathVista_MINI
+    split: test
+    modality: ["image", "text"]
+    task: "math"
+    description: "Math visual reasoning and understanding (MINI version)"
+  
+  - name: MathVision_MINI
+    split: test
+    modality: ["image", "text"]
+    task: "math"
+    description: "Math visual reasoning (MINI version)"
+  
+  - name: MathVerse_MINI
+    split: test
+    modality: ["image", "text"]
+    task: "math"
+    description: "Math reasoning (MINI version)"
+  
+  - name: MMBench_DEV_EN_V11
+    split: dev
+    modality: ["image", "text"]
+    task: "vqa_mc"
+    description: "Multimodal benchmark (dev set, English V11)"
+  
+  - name: RealWorldQA
+    split: test
+    modality: ["image", "text"]
+    task: "vqa_oe"
+    description: "Real-world question answering"
+  
+  - name: MMStar
+    split: test
+    modality: ["image", "text"]
+    task: "vqa_mc"
+    description: "MMStar multimodal evaluation"
+  
+  - name: HallusionBench
+    split: test
+    modality: ["image", "text"]
+    task: "vqa_mc"
+    description: "Hallucination detection benchmark"
+  
+  - name: TextVQA_VAL
+    split: validation
+    modality: ["image", "text"]
+    task: "vqa_oe"
+    description: "TextVQA (validation set)"
+  
+  - name: ChartQA_TEST
+    split: test
+    modality: ["image", "text"]
+    task: "ocr_qa"
+    description: "Chart question answering (test set)"
+  
+  - name: DocVQA_VAL
+    split: validation
+    modality: ["image", "text"]
+    task: "ocr_qa"
+    description: "Document question answering (validation set)"
+  
+  - name: InfoVQA_VAL
+    split: validation
+    modality: ["image", "text"]
+    task: "ocr_qa"
+    description: "InfoVQA (validation set)"
+  
+  - name: AI2D_TEST
+    split: test
+    modality: ["image", "text"]
+    task: "vqa_mc"
+    description: "AI2D diagram understanding (test set)"
+  
+  - name: OCRBench
+    split: test
+    modality: ["image", "text"]
+    task: "ocr_qa"
+    description: "OCR capability benchmark"
+
+# Dataset split definitions
+splits:
+  train:
+    description: "Training set (used to train the router)"
+    ratio: 0.7
+  
+  dev:
+    description: "Development/validation set (used for tuning)"
+    ratio: 0.1
+  
+  test:
+    description: "Test set"
+    ratio: 0.2
+
+# Task type definitions
+task_types:
+  math:
+    description: "Mathematical reasoning and computation"
+    examples:
+      - "Geometry problem solving"
+      - "Algebraic calculation"
+      - "Chart/table data analysis"
+  
+  vqa_mc:
+    description: "Visual question answering (multiple choice)"
+  
+  vqa_oe:
+    description: "Visual question answering (open-ended)"
+  
+  ocr_qa:
+    description: "OCR and document question answering"

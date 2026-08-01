@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Large / generated benchmark outputs
+BENCHMARKS/
+ORACLE/
+SPLITS/
+CALIBRATION/
+EMBEDDINGS/
+reports/
+data/matrices/
+data/registry/
+vlm_router_data/
+outputs/
+logs/
+wandb/
+runs/
+checkpoints/
+hf_cache/
+torch_cache/
+tmp/
+
+# Artifacts
+*.log
+*.csv
+*.tsv
+*.xlsx
+*.jsonl.gz
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.safetensors
+*.parquet
+*.tar
+*.tar.gz
+*.zip

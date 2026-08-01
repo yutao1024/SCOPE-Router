@@ -1,0 +1,297 @@
+# VLM Router Benchmark - Model configuration
+# Standardized model IDs and alias mapping
+
+models:
+  InternVL2_5-78B:
+    aliases: ["InternVL2_5-78B", "internvl2_5-78b", "InternVL2.5-78B"]
+    description: "InternVL2.5-78B multimodal model"
+    type: "local"
+    parameters: "78B"
+    provider: "opengvlab"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [448, 448]
+    context_window: 8192
+    supports_bbox: true
+    supports_ocr: true
+    
+  MiMo-VL-7B-RL:
+    aliases: ["MiMo-VL-7B-RL", "mimo-vl-7b-rl", "MiMo_VL_7B_RL"]
+    description: "MiMo-VL-7B-RL vision-language model"
+    type: "local"
+    parameters: "7B"
+    provider: "unknown"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [448, 448]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  Phi-3.5-Vision:
+    aliases: ["Phi-3.5-Vision", "phi-3.5-vision", "Phi_3.5_Vision"]
+    description: "Phi-3.5-Vision multimodal model"
+    type: "local"
+    parameters: "7B"
+    provider: "microsoft"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [1024, 1024]
+    context_window: 128000
+    supports_bbox: false
+    supports_ocr: true
+    
+  Qwen2.5-VL-32B-Instruct:
+    aliases: ["Qwen2.5-VL-32B-Instruct", "qwen2.5-vl-32b-instruct", "Qwen2_5_VL_32B_Instruct"]
+    description: "Qwen2.5-VL-32B-Instruct vision-language model"
+    type: "local"
+    parameters: "32B"
+    provider: "qwen"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [1344, 1344]
+    context_window: 32768
+    supports_bbox: true
+    supports_ocr: true
+    
+  Qwen2.5-VL-72B-Instruct:
+    aliases: ["Qwen2.5-VL-72B-Instruct", "qwen2.5-vl-72b-instruct", "Qwen2_5_VL_72B_Instruct"]
+    description: "Qwen2.5-VL-72B-Instruct vision-language model"
+    type: "local"
+    parameters: "72B"
+    provider: "qwen"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [1344, 1344]
+    context_window: 32768
+    supports_bbox: true
+    supports_ocr: true
+    
+  SmolVLM2:
+    aliases: ["SmolVLM2", "smolvlm2"]
+    description: "SmolVLM2 lightweight vision-language model"
+    type: "local"
+    parameters: "2B"
+    provider: "unsloth"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [448, 448]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  llava_next_vicuna_7b:
+    aliases: ["llava_next_vicuna_7b", "llava-next-vicuna-7b", "LLaVA_Next_Vicuna_7B"]
+    description: "LLaVA-Next-Vicuna-7B vision-language model"
+    type: "local"
+    parameters: "7B"
+    provider: "liuhaotian"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [672, 672]
+    context_window: 4096
+    supports_bbox: false
+    supports_ocr: false
+    
+  Gemma3-27B:
+    aliases: ["Gemma3-27B", "gemma3-27b", "Gemma_3_27B"]
+    description: "Gemma3-27B vision-language model"
+    type: "local"
+    parameters: "27B"
+    provider: "google"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [1024, 1024]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  Janus-Pro-1B:
+    aliases: ["Janus-Pro-1B", "janus-pro-1b", "Janus_Pro_1B"]
+    description: "Janus-Pro-1B lightweight vision-language model"
+    type: "local"
+    parameters: "1B"
+    provider: "deepseek"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [384, 384]
+    context_window: 4096
+    supports_bbox: false
+    supports_ocr: true
+    
+  Janus-Pro-7B:
+    aliases: ["Janus-Pro-7B", "janus-pro-7b", "Janus_Pro_7B"]
+    description: "Janus-Pro-7B vision-language model"
+    type: "local"
+    parameters: "7B"
+    provider: "deepseek"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [768, 768]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  Kimi-VL-A3B-Thinking-2506:
+    aliases: ["Kimi-VL-A3B-Thinking-2506", "kimi-vl-a3b-thinking-2506", "Kimi_VL_A3B_Thinking_2506"]
+    description: "Kimi-VL-A3B-Thinking-2506 thinking-oriented vision-language model"
+    type: "local"
+    parameters: "3B"
+    provider: "moonshot"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [448, 448]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  Pixtral-12B:
+    aliases: ["Pixtral-12B", "pixtral-12b", "Pixtral_12B"]
+    description: "Pixtral-12B vision-language model"
+    type: "local"
+    parameters: "12B"
+    provider: "mistral"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [1024, 1024]
+    context_window: 32768
+    supports_bbox: false
+    supports_ocr: true
+    
+  Qianfan-VL-8B:
+    aliases: ["Qianfan-VL-8B", "qianfan-vl-8b", "Qianfan_VL_8B"]
+    description: "Qianfan-VL-8B vision-language model"
+    type: "local"
+    parameters: "8B"
+    provider: "baidu"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [768, 768]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  deepseek_vl2:
+    aliases: ["deepseek_vl2", "deepseek-vl2", "DeepSeek_VL2"]
+    description: "DeepSeek-VL2 vision-language model"
+    type: "local"
+    parameters: "27B"
+    provider: "deepseek"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [1024, 1024]
+    context_window: 16384
+    supports_bbox: true
+    supports_ocr: true
+    
+  deepseek_vl2_tiny:
+    aliases: ["deepseek_vl2_tiny", "deepseek-vl2-tiny", "DeepSeek_VL2_Tiny"]
+    description: "DeepSeek-VL2-Tiny lightweight vision-language model"
+    type: "local"
+    parameters: "1.5B"
+    provider: "deepseek"
+    open_source: true
+    modalities: ["image", "text"]
+    max_image_res: [384, 384]
+    context_window: 8192
+    supports_bbox: false
+    supports_ocr: true
+    
+  GPT4o:
+    aliases: ["GPT4o", "gpt-4o", "GPT-4o", "gpt4o"]
+    description: "GPT-4o OpenAI flagship multimodal model"
+    type: "api"
+    parameters: "unknown"
+    provider: "openai"
+    open_source: false
+    modalities: ["image", "text"]
+    max_image_res: [2048, 2048]
+    context_window: 128000
+    supports_bbox: true
+    supports_ocr: true
+    
+  GeminiFlash2-5:
+    aliases: ["GeminiFlash2-5", "gemini-flash-2.5", "Gemini-Flash-2-5", "geminiflash2-5"]
+    description: "Gemini Flash 2.5 Google efficient multimodal model"
+    type: "api"
+    parameters: "unknown"
+    provider: "google"
+    open_source: false
+    modalities: ["image", "text", "video"]
+    max_image_res: [3072, 3072]
+    context_window: 1000000
+    supports_bbox: true
+    supports_ocr: true
+
+# Reference model (used for VR metric computation)
+reference_model: "InternVL2_5-78B"
+
+# Model capability annotations (for analysis)
+model_capabilities:
+  InternVL2_5-78B:
+    strengths: ["math", "reasoning", "ocr", "high_performance"]
+    compute_requirement: "high"
+    
+  MiMo-VL-7B-RL:
+    strengths: ["balanced", "efficient"]
+    compute_requirement: "medium"
+    
+  Phi-3.5-Vision:
+    strengths: ["general", "efficient"]
+    compute_requirement: "medium"
+    
+  Qwen2.5-VL-32B-Instruct:
+    strengths: ["math", "reasoning", "ocr"]
+    compute_requirement: "high"
+    
+  Qwen2.5-VL-72B-Instruct:
+    strengths: ["math", "reasoning", "ocr", "high_performance"]
+    compute_requirement: "very_high"
+    
+  SmolVLM2:
+    strengths: ["lightweight", "fast_inference"]
+    compute_requirement: "low"
+    
+  llava_next_vicuna_7b:
+    strengths: ["general", "vqa"]
+    compute_requirement: "medium"
+    
+  Gemma3-27B:
+    strengths: ["math", "reasoning", "general"]
+    compute_requirement: "high"
+    
+  Janus-Pro-1B:
+    strengths: ["lightweight", "fast_inference", "efficient"]
+    compute_requirement: "low"
+    
+  Janus-Pro-7B:
+    strengths: ["balanced", "general", "efficient"]
+    compute_requirement: "medium"
+    
+  Kimi-VL-A3B-Thinking-2506:
+    strengths: ["reasoning", "thinking", "lightweight"]
+    compute_requirement: "low"
+    
+  Pixtral-12B:
+    strengths: ["general", "ocr", "balanced"]
+    compute_requirement: "medium"
+    
+  Qianfan-VL-8B:
+    strengths: ["general", "chinese", "efficient"]
+    compute_requirement: "medium"
+    
+  deepseek_vl2:
+    strengths: ["math", "reasoning", "ocr", "high_performance"]
+    compute_requirement: "high"
+    
+  deepseek_vl2_tiny:
+    strengths: ["lightweight", "fast_inference", "efficient"]
+    compute_requirement: "low"
+    
+  GPT4o:
+    strengths: ["sota_performance", "math", "reasoning", "ocr", "general"]
+    compute_requirement: "api"
+    
+  GeminiFlash2-5:
+    strengths: ["efficient", "fast_inference", "long_context", "video", "cost_effective"]
+    compute_requirement: "api"

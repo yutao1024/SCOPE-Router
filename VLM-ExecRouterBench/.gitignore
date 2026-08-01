@@ -1,0 +1,37 @@
+# Python/cache artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local environments and secrets
+.env
+*.env
+*.key
+*.pem
+.cache/
+.hf_cache/
+
+# Large benchmark artifacts excluded from the code-only submission
+data/
+raw_hf/
+runs/
+openclaw_tasks/
+external/
+outputs/
+EMBEDDINGS/
+ORACLE/
+CALIBRATION/
+*.npy
+*.npz
+*.parquet
+*.pkl
+*.zip
+
+# LaTeX build products
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
