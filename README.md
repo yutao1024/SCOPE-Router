@@ -62,7 +62,7 @@ conda create -n scope-router python=3.10 -y
 conda activate scope-router
 
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -e .
 ```
 
 ## Dataset Format
