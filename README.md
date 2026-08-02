@@ -42,11 +42,7 @@ generation/evaluation pipeline.
 
 ## Overview
 
-<p align="center">
-  <img src="assets/overview.png" alt="SCOPE-Router overview" width="95%">
-</p>
-
-[View the PDF version.](assets/overview.pdf)
+![SCOPE-Router overview](assets/overview.png)
 
 ## Method
 
