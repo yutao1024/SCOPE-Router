@@ -30,9 +30,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from routers.features.text_encoder import TextEncoder  # noqa: E402
-from routers.features.vision_encoder import VisionEncoder  # noqa: E402
-from routers.scope_router.router import ScopeRouter  # noqa: E402
+if False:  # pragma: no cover - typing only.
+    from routers.features.text_encoder import TextEncoder
+    from routers.features.vision_encoder import VisionEncoder
 
 
 def compact_json(value: Any, limit: int = 12000) -> str:
@@ -139,6 +139,8 @@ class ScopeRoutingEngine:
         batch_size: int,
         device: str | None,
     ):
+        from routers.scope_router.router import ScopeRouter
+
         self.router = ScopeRouter.load(str(router_path))
         self.router.verbose = 0
         self.text_encoder_name = text_encoder_name
@@ -155,6 +157,8 @@ class ScopeRoutingEngine:
 
     def text_encoder(self) -> TextEncoder:
         if self._text_encoder is None:
+            from routers.features.text_encoder import TextEncoder
+
             self._text_encoder = TextEncoder(
                 model_name=self.text_encoder_name,
                 device=self.device,
@@ -165,6 +169,8 @@ class ScopeRoutingEngine:
 
     def vision_encoder(self) -> VisionEncoder:
         if self._vision_encoder is None:
+            from routers.features.vision_encoder import VisionEncoder
+
             self._vision_encoder = VisionEncoder(
                 model_name=self.vision_encoder_name,
                 device=self.device,
@@ -262,7 +268,39 @@ class ScopeRoutingEngine:
         }
 
 
-def make_handler(engine: ScopeRoutingEngine):
+class MockRoutingEngine:
+    """Small checkpoint-free router for testing gateway integration hooks."""
+
+    @property
+    def model_names(self) -> list[str]:
+        return ["mock-cheap-model", "mock-strong-model"]
+
+    def route(self, payload: dict[str, Any]) -> dict[str, Any]:
+        candidates = normalize_candidates(payload)
+        if candidates:
+            candidate = candidates[-1]
+            selector = str(candidate.get("selector") or candidate.get("model"))
+            model = str(candidate.get("model") or selector)
+        else:
+            selector = "mock-strong-model"
+            model = selector
+        print(
+            "[scope-router] mock route "
+            f"candidates={len(candidates)} selected={selector}",
+            flush=True,
+        )
+        return {
+            "model": selector,
+            "selected_model": model,
+            "selector": selector,
+            "score": 1.0,
+            "routed": True,
+            "reason": "mock-scope",
+            "top": [{"model_name": selector, "score": 1.0}],
+        }
+
+
+def make_handler(engine: ScopeRoutingEngine | MockRoutingEngine):
     class Handler(BaseHTTPRequestHandler):
         server_version = "ScopeRouterService/0.1"
 
@@ -301,22 +339,30 @@ def make_handler(engine: ScopeRoutingEngine):
 
 def main() -> None:
     args = parse_args()
-    engine = ScopeRoutingEngine(
-        router_path=Path(args.router).expanduser(),
-        text_encoder_name=args.text_encoder,
-        vision_encoder_name=args.vision_encoder,
-        batch_size=args.batch_size,
-        device=args.device,
-    )
+    if args.mock:
+        engine: ScopeRoutingEngine | MockRoutingEngine = MockRoutingEngine()
+    else:
+        if not args.router:
+            raise SystemExit("--router is required unless --mock is set")
+        engine = ScopeRoutingEngine(
+            router_path=Path(args.router).expanduser(),
+            text_encoder_name=args.text_encoder,
+            vision_encoder_name=args.vision_encoder,
+            batch_size=args.batch_size,
+            device=args.device,
+        )
     server = ThreadingHTTPServer((args.host, args.port), make_handler(engine))
     print(f"SCOPE-Router service listening on http://{args.host}:{args.port}")
     print("Routes: GET /health, POST /route")
+    if args.mock:
+        print("Mock mode: selecting the last candidate from each request")
     server.serve_forever()
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--router", required=True, help="Path to a trained SCOPE-Router .pkl checkpoint")
+    parser.add_argument("--router", help="Path to a trained SCOPE-Router .pkl checkpoint")
+    parser.add_argument("--mock", action="store_true", help="Run a checkpoint-free mock router for integration tests")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8760)
     parser.add_argument("--text-encoder", default="BAAI/bge-m3")

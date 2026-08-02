@@ -8,8 +8,8 @@
   <a href="https://arxiv.org/abs/TBD">
     <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3ATBD-b31b1b?style=for-the-badge">
   </a>
-  <a href="https://huggingface.co/TBD">
-    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-TBD-ffcc4d?style=for-the-badge">
+  <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench">
+    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-VLM--ExecRouterBench-ffcc4d?style=for-the-badge">
   </a>
   <a href="VLM-ExecRouterBench/">
     <img alt="Benchmark" src="https://img.shields.io/badge/Benchmark-VLM--ExecRouterBench-ff9f1c?style=for-the-badge">
@@ -19,7 +19,7 @@
 <p>
   <a href="https://arxiv.org/abs/TBD"><strong>Paper</strong></a>
   |
-  <a href="https://huggingface.co/TBD"><strong>Hugging Face</strong></a>
+  <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench"><strong>Hugging Face</strong></a>
   |
   <a href="VLM-ExecRouterBench/"><strong>VLM-ExecRouterBench</strong></a>
 </p>

@@ -46,6 +46,11 @@ export const fallbackConfig: AppConfig = {
     enabled: true,
     timeoutMs: 8000
   },
+  ScopeRouter: {
+    enabled: true,
+    endpoint: "http://127.0.0.1:8760/route",
+    timeoutMs: 2000
+  },
   CUSTOM_ROUTER_PATH: "",
   HOST: "127.0.0.1",
   PORT: 3456,

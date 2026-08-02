@@ -382,6 +382,10 @@ export async function loadAppConfig(): Promise<AppConfig> {
         ...DEFAULT_CONFIG.ACRouter,
         ...(picked.ACRouter ?? {})
       },
+      ScopeRouter: {
+        ...DEFAULT_CONFIG.ScopeRouter,
+        ...(picked.ScopeRouter ?? {})
+      },
       Router: {
         ...DEFAULT_CONFIG.Router,
         ...picked.Router
@@ -615,7 +619,7 @@ function readLegacyJsonConfig(): Partial<AppConfig> | undefined {
       continue;
     }
     try {
-      const parsed = JSON.parse(readFileSync(file, "utf8")) as unknown;
+      const parsed = JSON.parse(stripJsonBom(readFileSync(file, "utf8"))) as unknown;
       if (isObject(parsed)) {
         return parsed as Partial<AppConfig>;
       }
@@ -625,6 +629,10 @@ function readLegacyJsonConfig(): Partial<AppConfig> | undefined {
     }
   }
   return undefined;
+}
+
+function stripJsonBom(value: string): string {
+  return value.replace(/^\uFEFF+/, "").replace(/^ï»¿+/, "");
 }
 
 async function writeSanitizedConfig(config: AppConfig): Promise<void> {
