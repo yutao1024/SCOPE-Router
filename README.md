@@ -55,22 +55,6 @@ The main training objective uses:
 - Routing-Consistency Contrastive Regularization (RCCR): a query-space
   regularizer that keeps queries with similar routing targets close.
 
-## Repository Layout
-
-| Path | Purpose |
-|---|---|
-| `routers/scope_router/` | Main frozen-feature SCOPE-Router implementation. |
-| `routers/scope_router_online/` | Optional online variant with trainable query encoders. |
-| `routers/features/` | Text and vision embedding extraction utilities. |
-| `routers/utils/` | Shared evaluation, ranking, target-construction, and training helpers. |
-| `tools/select_calibration_set.py` | Random, diagnostic, diversity, and hybrid calibration selection. |
-| `tools/build_calibration_profile.py` | Calibration profile construction. |
-| `scripts/train_scope_router.sh` | End-to-end SCOPE-Router training script. |
-| `integrations/scope_router_service.py` | Runtime HTTP routing service for agent gateways such as cc-switch and Claude Code Router. |
-| `cc-switch/` | Ready-to-adapt cc-switch fork with proxy-level SCOPE-Router support. |
-| `claude-code-router/` | Ready-to-adapt Claude Code Router fork with gateway-level SCOPE-Router support. |
-| `VLM-ExecRouterBench/` | Execution-oriented benchmark construction and SFT/evaluation utilities. |
-
 ## Installation
 
 ```bash
@@ -157,6 +141,22 @@ mapping. For Claude Code Router, `claude-code-router/` adds a gateway-level
 evaluation utilities used by the project. See
 `VLM-ExecRouterBench/README.md` and the documents under
 `VLM-ExecRouterBench/docs/` for the benchmark-side workflow.
+
+## Repository Layout
+
+| Path | Purpose |
+|---|---|
+| `routers/scope_router/` | Main frozen-feature SCOPE-Router implementation. |
+| `routers/scope_router_online/` | Optional online variant with trainable query encoders. |
+| `routers/features/` | Text and vision embedding extraction utilities. |
+| `routers/utils/` | Shared evaluation, ranking, target-construction, and training helpers. |
+| `tools/select_calibration_set.py` | Random, diagnostic, diversity, and hybrid calibration selection. |
+| `tools/build_calibration_profile.py` | Calibration profile construction. |
+| `scripts/train_scope_router.sh` | End-to-end SCOPE-Router training script. |
+| `integrations/scope_router_service.py` | Runtime HTTP routing service for agent gateways such as cc-switch and Claude Code Router. |
+| `cc-switch/` | Ready-to-adapt cc-switch fork with proxy-level SCOPE-Router support. |
+| `claude-code-router/` | Ready-to-adapt Claude Code Router fork with gateway-level SCOPE-Router support. |
+| `VLM-ExecRouterBench/` | Execution-oriented benchmark construction and SFT/evaluation utilities. |
 
 ## Citation
 
