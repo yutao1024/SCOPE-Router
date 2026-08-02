@@ -39,22 +39,6 @@ generation/evaluation pipeline.
 
 ![SCOPE-Router overview](assets/overview.png)
 
-## Method
-
-SCOPE-Router has three main stages:
-
-1. Select a compact calibration set from the training split.
-2. Build one reusable profile vector per candidate model from calibration
-   correctness, cost, and optional query-aware statistics.
-3. Train a profile-aware router that scores query-model compatibility.
-
-The main training objective uses:
-
-- Cost-aware Relevance Matching (CRM): dense query-model relevance targets that
-  reward correct low-cost models.
-- Routing-Consistency Contrastive Regularization (RCCR): a query-space
-  regularizer that keeps queries with similar routing targets close.
-
 ## Installation
 
 ```bash
