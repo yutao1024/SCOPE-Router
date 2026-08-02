@@ -5,9 +5,6 @@
 **Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models.**
 
 <p>
-  <a href="https://github.com/yutao1024/SCOPE-Router">
-    <img alt="Homepage" src="https://img.shields.io/badge/Homepage-SCOPE--Router-1f6feb?style=for-the-badge">
-  </a>
   <a href="https://arxiv.org/abs/TBD">
     <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3ATBD-b31b1b?style=for-the-badge">
   </a>
@@ -20,8 +17,6 @@
 </p>
 
 <p>
-  <a href="https://github.com/yutao1024/SCOPE-Router"><strong>Homepage</strong></a>
-  |
   <a href="https://arxiv.org/abs/TBD"><strong>Paper</strong></a>
   |
   <a href="https://huggingface.co/TBD"><strong>Hugging Face</strong></a>
