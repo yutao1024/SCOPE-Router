@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scope-router"
+version = "0.1.0"
+description = "Cost-aware open-set routing for execution-oriented vision-language models."
+readme = "README.md"
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
+[tool.setuptools.packages.find]
+include = ["routers*"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }

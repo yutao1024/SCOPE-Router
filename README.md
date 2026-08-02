@@ -1,5 +1,10 @@
 # SCOPE-Router
 
+<p align="center">
+  <a href="https://arxiv.org/abs/TBD"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-TBD-b31b1b.svg" /></a>
+  <a href="https://huggingface.co/TBD"><img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-TBD-ffcc4d.svg" /></a>
+</p>
+
 SCOPE-Router is a cost-aware, open-set router for vision-language models. It
 routes each query to a candidate VLM by matching the query embedding against
 reusable model profiles built from a small calibration set, allowing new
@@ -8,6 +13,10 @@ candidate models to be added by profiling them without retraining the router.
 The repository contains the SCOPE-Router implementation, feature extraction and
 calibration utilities, evaluation scripts, and the VLM-ExecRouterBench data
 generation/evaluation pipeline.
+
+## Overview
+
+[View the SCOPE-Router overview figure.](assets/overview.pdf)
 
 ## Method
 
