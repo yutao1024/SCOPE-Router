@@ -102,16 +102,7 @@ bash scripts/train_scope_router.sh /path/to/dataset
 ## Runtime Gateway Integration
 
 SCOPE-Router can be used as a live model selector inside an existing agent
-gateway. The agent framework stays fixed; SCOPE-Router only chooses the backend
-model from the gateway's configured candidate pool:
-
-```text
-Codex / Claude Code / OpenClaw request
--> gateway collects candidate models
--> SCOPE-Router selects one candidate
--> gateway rewrites body.model
--> normal provider mapping and upstream forwarding continue
-```
+gateway.
 
 Start the service:
 
