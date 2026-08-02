@@ -2,7 +2,7 @@
 
 # SCOPE-Router
 
-**Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models.**
+**SCOPE-Router: Cost-Aware Open-Set VLM Routing for Execution-Oriented Tasks.**
 
 <p>
   <a href="https://arxiv.org/abs/TBD">
@@ -162,7 +162,7 @@ evaluation utilities used by the project. See
 
 ```bibtex
 @article{scope-router,
-  title  = {SCOPE-Router: Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models},
+  title  = {SCOPE-Router: Cost-Aware Open-Set VLM Routing for Execution-Oriented Tasks},
   author = {Anonymous Authors},
   journal = {arXiv preprint},
   year   = {2026}
