@@ -9,17 +9,6 @@ The repository contains the SCOPE-Router implementation, feature extraction and
 calibration utilities, evaluation scripts, and the VLM-ExecRouterBench data
 generation/evaluation pipeline.
 
-## Citation
-
-```bibtex
-@article{scope-router,
-  title  = {SCOPE-Router: Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models},
-  author = {Anonymous Authors},
-  journal = {arXiv preprint},
-  year   = {2026}
-}
-```
-
 ## Method
 
 SCOPE-Router has three main stages:
@@ -110,30 +99,6 @@ query-aware profile, and trains SCOPE-Router with CRM + RCCR:
 bash scripts/train_scope_router.sh /path/to/dataset
 ```
 
-Equivalent core training flags:
-
-```bash
-python routers/scope_router/train_and_eval.py \
-  --dataset_dir /path/to/dataset \
-  --profile_path /path/to/profile.npz \
-  --output_dir outputs/scope_router \
-  --text_encoder BAAI/bge-m3 \
-  --vision_encoder facebook/dinov2-large \
-  --fusion_method normalize_concat \
-  --embedding_dim 64 \
-  --query_hidden_dim 128 \
-  --profile_hidden_dim 128 \
-  --loss_type crm \
-  --crm_target relevance \
-  --crm_bias none \
-  --rccr_weight 1.0 \
-  --rccr_temperature 0.1 \
-  --learn_rccr_temperature \
-  --train_lambda 10 \
-  --cost_scale 100 \
-  --monitor_metric rank_score
-```
-
 ## Runtime Gateway Integration
 
 SCOPE-Router can be used as a live model selector inside an existing agent
@@ -202,3 +167,14 @@ mapping. For Claude Code Router, `claude-code-router/` adds a gateway-level
 evaluation utilities used by the project. See
 `VLM-ExecRouterBench/README.md` and the documents under
 `VLM-ExecRouterBench/docs/` for the benchmark-side workflow.
+
+## Citation
+
+```bibtex
+@article{scope-router,
+  title  = {SCOPE-Router: Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models},
+  author = {Anonymous Authors},
+  journal = {arXiv preprint},
+  year   = {2026}
+}
+```
