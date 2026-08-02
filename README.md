@@ -1,9 +1,35 @@
+<div align="center">
+
 # SCOPE-Router
 
-<p align="center">
-  <a href="https://arxiv.org/abs/TBD"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-TBD-b31b1b.svg" /></a>
-  <a href="https://huggingface.co/TBD"><img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-TBD-ffcc4d.svg" /></a>
+**Cost-Aware Open-Set Routing for Execution-Oriented Vision-Language Models.**
+
+<p>
+  <a href="https://github.com/yutao1024/SCOPE-Router">
+    <img alt="Homepage" src="https://img.shields.io/badge/Homepage-SCOPE--Router-1f6feb?style=for-the-badge">
+  </a>
+  <a href="https://arxiv.org/abs/TBD">
+    <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3ATBD-b31b1b?style=for-the-badge">
+  </a>
+  <a href="https://huggingface.co/TBD">
+    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-TBD-ffcc4d?style=for-the-badge">
+  </a>
+  <a href="VLM-ExecRouterBench/">
+    <img alt="Benchmark" src="https://img.shields.io/badge/Benchmark-VLM--ExecRouterBench-ff9f1c?style=for-the-badge">
+  </a>
 </p>
+
+<p>
+  <a href="https://github.com/yutao1024/SCOPE-Router"><strong>Homepage</strong></a>
+  |
+  <a href="https://arxiv.org/abs/TBD"><strong>Paper</strong></a>
+  |
+  <a href="https://huggingface.co/TBD"><strong>Hugging Face</strong></a>
+  |
+  <a href="VLM-ExecRouterBench/"><strong>VLM-ExecRouterBench</strong></a>
+</p>
+
+</div>
 
 SCOPE-Router is a cost-aware, open-set router for vision-language models. It
 routes each query to a candidate VLM by matching the query embedding against
@@ -16,7 +42,11 @@ generation/evaluation pipeline.
 
 ## Overview
 
-[View the SCOPE-Router overview figure.](assets/overview.pdf)
+<p align="center">
+  <img src="assets/overview.png" alt="SCOPE-Router overview" width="95%">
+</p>
+
+[View the PDF version.](assets/overview.pdf)
 
 ## Method
 

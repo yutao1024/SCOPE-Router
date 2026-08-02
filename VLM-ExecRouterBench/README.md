@@ -6,9 +6,9 @@ tasks, runs candidate VLMs through shared executors, verifies the resulting
 answers or trajectories, and writes correctness/cost records that can be turned
 into router training matrices.
 
-This directory contains code and prompt templates only. Large generated
-artifacts are not included, such as raw benchmark data, images, indexes,
-candidate-model outputs, trajectories, caches, matrices, and SFT/output files.
+## Data Generation Overview
+
+![VLM-ExecRouterBench data generation overview](assets/data_generation.png)
 
 ## What This Pipeline Produces
 
