@@ -124,37 +124,6 @@ python integrations/scope_router_service.py \
   --vision-encoder facebook/dinov2-large
 ```
 
-A gateway sends the original request body and candidate models:
-
-```bash
-curl -s http://127.0.0.1:8760/route \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "body": {
-      "model": "current-static-model",
-      "messages": [{"role": "user", "content": "Fix the failing parser test."}]
-    },
-    "candidates": [
-      {"model": "cheap-model"},
-      {"model": "strong-model"}
-    ],
-    "fallback_model": "cheap-model"
-  }'
-```
-
-The response contains the selector that should be written into `body.model`:
-
-```json
-{
-  "model": "strong-model",
-  "selected_model": "strong-model",
-  "selector": "strong-model",
-  "score": 0.82,
-  "routed": true,
-  "reason": "scope-router"
-}
-```
-
 For cc-switch, this repository includes a ready-to-adapt fork under
 `cc-switch/`. It adds a proxy-level `scope_router` hook before static model
 mapping. For Claude Code Router, `claude-code-router/` adds a gateway-level
