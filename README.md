@@ -52,6 +52,23 @@ pip install --upgrade pip
 pip install -e .
 ```
 
+## Dataset Download
+
+Download the released router benchmark before feature extraction and training:
+
+```bash
+python - <<'PY'
+from huggingface_hub import snapshot_download
+
+snapshot_download(
+    repo_id="Kirito-Lab/VLM-ExecRouterBench",
+    repo_type="dataset",
+    local_dir="data/VLM-ExecRouterBench",
+    local_dir_use_symlinks=False,
+)
+PY
+```
+
 ## Dataset Format
 
 The router-side pipeline expects a prepared dataset directory with files such as:
@@ -82,7 +99,7 @@ for images:
 
 ```bash
 python routers/features/extract_cli.py \
-  --dataset_dir /path/to/dataset \
+  --dataset_dir data/VLM-ExecRouterBench \
   --text_encoder BAAI/bge-m3 \
   --vision_encoder facebook/dinov2-large \
   --batch_size 64
@@ -94,7 +111,7 @@ The convenience script selects a 1024-sample hybrid calibration set, builds a
 query-aware profile, and trains SCOPE-Router with CRM + RCCR:
 
 ```bash
-bash scripts/train_scope_router.sh /path/to/dataset
+bash scripts/train_scope_router.sh data/VLM-ExecRouterBench
 ```
 
 ## Runtime Gateway Integration
