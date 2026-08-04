@@ -119,6 +119,10 @@ mapping. For Claude Code Router, `claude-code-router/` adds a gateway-level
 `resolveScopeRouterRouteDecision` hook before provider resolution. See
 `integrations/README.md` for the request contract and config snippets.
 
+`demos/commercial_cli_router/` provides a small product-agnostic CLI demo that
+routes a prompt into local Codex, Claude Code, or opencode commands. It is
+useful for testing command-level integrations without editing those tools.
+
 ## VLM-ExecRouterBench
 
 `VLM-ExecRouterBench/` contains the execution-oriented benchmark generation and
@@ -138,6 +142,7 @@ evaluation utilities used by the project. See
 | `tools/build_calibration_profile.py` | Calibration profile construction. |
 | `scripts/train_scope_router.sh` | End-to-end SCOPE-Router training script. |
 | `integrations/scope_router_service.py` | Runtime HTTP routing service for agent gateways such as cc-switch and Claude Code Router. |
+| `demos/commercial_cli_router/` | Minimal Codex, Claude Code, and opencode CLI routing demo. |
 | `cc-switch/` | Ready-to-adapt cc-switch fork with proxy-level SCOPE-Router support. |
 | `claude-code-router/` | Ready-to-adapt Claude Code Router fork with gateway-level SCOPE-Router support. |
 | `VLM-ExecRouterBench/` | Execution-oriented benchmark construction and SFT/evaluation utilities. |

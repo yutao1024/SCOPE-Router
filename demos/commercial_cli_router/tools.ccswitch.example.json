@@ -1,0 +1,66 @@
+{
+  "tools": [
+    {
+      "name": "codex",
+      "enabled": true,
+      "description": "Codex through an outer ccswitch-style wrapper. Edit command_prefix to match your local switcher syntax.",
+      "command_prefix": ["ccswitch"],
+      "command_prefix_env": "SCOPE_ROUTER_CODEX_PREFIX",
+      "legacy_command_prefix_env": "ACROUTER_CODEX_PREFIX",
+      "command": [
+        "codex",
+        "exec",
+        "--sandbox",
+        "workspace-write",
+        "--cd",
+        "{workdir}"
+      ],
+      "prompt_mode": "append_arg"
+    },
+    {
+      "name": "claude-code",
+      "enabled": true,
+      "description": "Claude Code through an outer ccswitch-style wrapper.",
+      "command_prefix": ["ccswitch"],
+      "command_prefix_env": "SCOPE_ROUTER_CLAUDE_PREFIX",
+      "legacy_command_prefix_env": "ACROUTER_CLAUDE_PREFIX",
+      "command": [
+        "claude",
+        "--print",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "prompt_mode": "append_arg"
+    },
+    {
+      "name": "opencode",
+      "enabled": true,
+      "description": "opencode through an outer ccswitch-style wrapper.",
+      "command_prefix": ["ccswitch"],
+      "command_prefix_env": "SCOPE_ROUTER_OPENCODE_PREFIX",
+      "legacy_command_prefix_env": "ACROUTER_OPENCODE_PREFIX",
+      "command": [
+        "opencode",
+        "run"
+      ],
+      "prompt_mode": "append_arg"
+    }
+  ],
+  "routes": [
+    {
+      "name": "repo_patch",
+      "tool": "codex",
+      "keywords": ["patch", "repo", "test", "pytest", "refactor", "git"]
+    },
+    {
+      "name": "explain_or_plan",
+      "tool": "claude-code",
+      "keywords": ["explain", "plan", "review", "docs", "readme"]
+    },
+    {
+      "name": "fallback_open_tool",
+      "tool": "opencode",
+      "keywords": ["local", "oss", "open"]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@scope-router/commercial-cli-router-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local npm wrapper for the SCOPE-Router Codex/Claude Code/opencode router MVP.",
+  "bin": {
+    "scope-cli-router": "bin/scope-cli-router.js"
+  },
+  "license": "MIT"
+}
