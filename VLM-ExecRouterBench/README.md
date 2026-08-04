@@ -6,9 +6,50 @@ tasks, runs candidate VLMs through shared executors, verifies the resulting
 answers or trajectories, and writes correctness/cost records that can be turned
 into router training matrices.
 
+The benchmark is designed for routing rather than single-model evaluation. Each
+sample is executed by a pool of candidate VLMs, and each execution contributes
+both a correctness label and an inference cost. This makes it possible to study
+accuracy-cost tradeoffs, oracle upper bounds, and open-set onboarding of new
+models through calibration profiles.
+
+## Released Data
+
+The released benchmark artifacts are hosted on Hugging Face:
+
+```text
+https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench
+```
+
+For router training and evaluation, download the prepared artifacts from the
+root SCOPE-Router README and use them as the `--dataset_dir`. The code in this
+subdirectory is mainly for reproducing or extending the benchmark construction
+pipeline: preparing source tasks, executing candidate VLMs, verifying outputs,
+and packaging the resulting matrices.
+
 ## Data Generation Overview
 
 ![VLM-ExecRouterBench data generation overview](assets/data_generation.png)
+
+The pipeline starts from heterogeneous source benchmarks and normalizes them
+into executable task records. Candidate models then run through a shared
+executor interface, and task-specific verifiers convert the resulting outputs,
+tool traces, or code patches into correctness/cost rows.
+
+## Dataset Composition
+
+![VLM-ExecRouterBench dataset composition](assets/data_composition.png)
+
+VLM-ExecRouterBench covers three broad execution-oriented categories:
+
+| Category | Examples | What The Router Sees |
+|---|---|---|
+| Agentic | ChartQA, MMMU, OCRBench, DocVQA, AI2D, RealWorldQA | Multimodal instructions and images/documents requiring visual reasoning, OCR, chart reading, or grounded QA. |
+| Code | MBPP, APPS, BigCodeBench, LiveCodeBench | Programming prompts that are verified by tests or benchmark-specific evaluators. |
+| Search | BrowseComp-Plus | Search-style questions where tool-assisted retrieval and answer verification matter. |
+
+The mix intentionally contains tasks where the best model changes by domain,
+modality, and cost regime. This is the setting where a router can improve over
+always using the cheapest or strongest model.
 
 ## What This Pipeline Produces
 
@@ -30,6 +71,23 @@ router SFT examples
 The router-side SCOPE-Router code in the parent repository consumes these
 matrices and metadata for calibration selection, profile construction, training,
 and evaluation.
+
+## Model Heterogeneity
+
+![Model accuracy by dataset](assets/model_dataset_accuracy_heatmap.png)
+
+Different candidate VLMs have distinct strengths across datasets. The released
+matrices preserve this per-sample and per-model structure instead of collapsing
+results into a single leaderboard number, allowing router methods to learn when
+specialized or lower-cost models are sufficient.
+
+![Model cost and accuracy](assets/model_cost_accuracy.png)
+
+The benchmark also records per-model inference cost. Accuracy and cost are not
+monotonic across the candidate pool, so routing methods are evaluated by the
+combined rank score used in the parent SCOPE-Router pipeline.
+
+![Router accuracy-cost tradeoff](assets/router_accuracy_cost_tradeoff.png)
 
 ## Contents
 

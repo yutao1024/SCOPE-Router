@@ -37,7 +37,9 @@ generation/evaluation pipeline.
 
 ## Overview
 
-![SCOPE-Router overview](assets/overview.png)
+<p align="center">
+  <img src="./assets/overview.png" alt="SCOPE-Router overview" width="100%">
+</p>
 
 ## Installation
 
