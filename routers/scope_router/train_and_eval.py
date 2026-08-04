@@ -273,7 +273,7 @@ def main():
                         help="Learn the RCCR temperature as a positive scalar initialized from --rccr_temperature")
     parser.add_argument("--train_lambda", type=str, default="10.0")
     parser.add_argument("--hard_labels", action="store_true", help="Use cheapest-correct hard labels instead of soft labels")
-    parser.add_argument("--cost_scale", type=float, default=100.0)
+    parser.add_argument("--cost_scale", type=float, default=3.0)
     parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--monitor_metric", default="rank_score", choices=["rank_score", "accuracy", "avg_cost"])
     parser.add_argument("--unsafe_select_on_test", action="store_true",

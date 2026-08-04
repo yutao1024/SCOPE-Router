@@ -75,7 +75,7 @@ python routers/scope_router/train_and_eval.py \
   --rccr_temperature 0.1 \
   --learn_rccr_temperature \
   --train_lambda 10 \
-  --cost_scale 100 \
+  --cost_scale 3 \
   --patience 20 \
   --monitor_metric rank_score \
   --seed "$SEED" \

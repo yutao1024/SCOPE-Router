@@ -15,6 +15,17 @@ build/
 .venv/
 venv/
 
+# JavaScript / frontend
+node_modules/
+.pnpm-store/
+.vite/
+
+# Rust / Tauri
+target/
+src-tauri/target/
+rustup-init
+rustup-init.exe
+
 # OS / editor
 .DS_Store
 .vscode/
@@ -56,3 +67,4 @@ tmp/
 *.tar
 *.tar.gz
 *.zip
+*.bak
