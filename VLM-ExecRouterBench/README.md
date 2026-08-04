@@ -74,7 +74,7 @@ and evaluation.
 
 ## Model Heterogeneity
 
-![Model accuracy by dataset](assets/model_dataset_accuracy_heatmap.png)
+![Model strength profiles by dataset](assets/model_dataset_accuracy_radar.png)
 
 Different candidate VLMs have distinct strengths across datasets. The released
 matrices preserve this per-sample and per-model structure instead of collapsing
