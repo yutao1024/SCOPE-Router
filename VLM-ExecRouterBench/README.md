@@ -45,7 +45,7 @@ VLM-ExecRouterBench covers three broad execution-oriented categories:
 
 | Category | Examples | What The Router Sees |
 |---|---|---|
-| Agentic | ChartQA, MMMU, OCRBench, DocVQA, AI2D, RealWorldQA | Multimodal instructions and images/documents requiring visual reasoning, OCR, chart reading, or grounded QA. |
+| Agentic | ChartQA, MathVista, MMMU, OCRBench, DocVQA, AI2D, RealWorldQA | Multimodal instructions and images/documents requiring visual reasoning, OCR, chart reading, or grounded QA. |
 | Code | MBPP, APPS, BigCodeBench, LiveCodeBench | Programming prompts that are verified by tests or benchmark-specific evaluators. |
 | Search | BrowseComp-Plus | Search-style questions where tool-assisted retrieval and answer verification matter. |
 
