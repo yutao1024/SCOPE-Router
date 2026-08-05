@@ -37,7 +37,9 @@ tool traces, or code patches into correctness/cost rows.
 
 ## Dataset Composition
 
-![VLM-ExecRouterBench dataset composition](assets/data_composition.png)
+<p align="center">
+  <img src="assets/data_composition.png" alt="VLM-ExecRouterBench dataset composition" width="520">
+</p>
 
 VLM-ExecRouterBench covers three broad execution-oriented categories:
 
@@ -71,23 +73,6 @@ router SFT examples
 The router-side SCOPE-Router code in the parent repository consumes these
 matrices and metadata for calibration selection, profile construction, training,
 and evaluation.
-
-## Model Heterogeneity
-
-![Model strength profiles by dataset](assets/model_dataset_accuracy_radar.png)
-
-Different candidate VLMs have distinct strengths across datasets. The released
-matrices preserve this per-sample and per-model structure instead of collapsing
-results into a single leaderboard number, allowing router methods to learn when
-specialized or lower-cost models are sufficient.
-
-![Model cost and accuracy](assets/model_cost_accuracy.png)
-
-The benchmark also records per-model inference cost. Accuracy and cost are not
-monotonic across the candidate pool, so routing methods are evaluated by the
-combined rank score used in the parent SCOPE-Router pipeline.
-
-![Router accuracy-cost tradeoff](assets/router_accuracy_cost_tradeoff.png)
 
 ## Contents
 
