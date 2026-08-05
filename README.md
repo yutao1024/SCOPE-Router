@@ -9,7 +9,7 @@
     <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3ATBD-b31b1b?style=for-the-badge">
   </a>
   <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench">
-    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-VLM--ExecRouterBench-ffcc4d?style=for-the-badge">
+    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-Data%20%26%20Weights-ffcc4d?style=for-the-badge">
   </a>
   <a href="VLM-ExecRouterBench/">
     <img alt="Benchmark" src="https://img.shields.io/badge/Benchmark-VLM--ExecRouterBench-ff9f1c?style=for-the-badge">
@@ -19,7 +19,7 @@
 <p>
   <a href="https://arxiv.org/abs/TBD"><strong>Paper</strong></a>
   |
-  <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench"><strong>Hugging Face</strong></a>
+  <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench"><strong>Data & Weights</strong></a>
   |
   <a href="VLM-ExecRouterBench/"><strong>VLM-ExecRouterBench</strong></a>
 </p>
@@ -56,7 +56,9 @@ pip install -e .
 
 ## Dataset Download
 
-Download the released router benchmark before feature extraction and training:
+Download the released router benchmark before feature extraction and training.
+The same Hugging Face repository also hosts released SCOPE-Router checkpoints
+under `weights/`.
 
 ```bash
 python - <<'PY'
@@ -68,6 +70,37 @@ snapshot_download(
     local_dir="data/VLM-ExecRouterBench",
     local_dir_use_symlinks=False,
 )
+PY
+```
+
+## Released Weights
+
+Pretrained SCOPE-Router checkpoints are available in the dataset repository:
+
+```text
+weights/scope_router_vlm_execrouterbench.pkl
+weights/scope_router_vl_routerbench.pkl
+weights/scope_router_mmr_bench.pkl
+```
+
+Download them with:
+
+```bash
+python - <<'PY'
+from huggingface_hub import hf_hub_download
+
+repo_id = "Kirito-Lab/VLM-ExecRouterBench"
+for filename in [
+    "weights/scope_router_vlm_execrouterbench.pkl",
+    "weights/scope_router_vl_routerbench.pkl",
+    "weights/scope_router_mmr_bench.pkl",
+]:
+    hf_hub_download(
+        repo_id=repo_id,
+        repo_type="dataset",
+        filename=filename,
+        local_dir="data/VLM-ExecRouterBench",
+    )
 PY
 ```
 
@@ -125,7 +158,7 @@ Start the service:
 
 ```bash
 python integrations/scope_router_service.py \
-  --router /path/to/scope_router.pkl \
+  --router data/VLM-ExecRouterBench/weights/scope_router_vlm_execrouterbench.pkl \
   --host 127.0.0.1 \
   --port 8760 \
   --text-encoder BAAI/bge-m3 \
