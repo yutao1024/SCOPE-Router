@@ -149,7 +149,6 @@ evaluation utilities used by the project. See
   title   = {{SCOPE-Router}: Cost-Aware Open-Set {VLM} Routing for Execution-Oriented Tasks},
   author  = {Tao Yu and Yifei Qu and Zhiqing Cui and Pengfei Zhou and Zhongtian Luo and Yujia Yang and Shenghua Chai and Haopeng Jin and Zhenghao Zhang and Xinming Wang and Hongzhu Yi and Wangbo Zhao and Zhenglin Wan and Yan Huang and Yeshani and Jinwen Luo and Yang You},
   journal = {arXiv preprint arXiv:2608.12127},
-  year    = {2026},
-  url     = {https://arxiv.org/abs/2608.12127}
+  year    = {2026}
 }
 ```
