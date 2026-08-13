@@ -5,11 +5,11 @@
 **SCOPE-Router: Cost-Aware Open-Set VLM Routing for Execution-Oriented Tasks.**
 
 <p>
-  <a href="https://arxiv.org/abs/TBD">
-    <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3ATBD-b31b1b?style=for-the-badge">
+  <a href="https://arxiv.org/pdf/2608.12127">
+    <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3A2608.12127-b31b1b?style=for-the-badge">
   </a>
   <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench">
-    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-Data%20%26%20Weights-ffcc4d?style=for-the-badge">
+    <img alt="Hugging Face" src="https://img.shields.io/badge/Hugging%20Face-VLM--ExecRouterBench-ffcc4d?style=for-the-badge">
   </a>
   <a href="VLM-ExecRouterBench/">
     <img alt="Benchmark" src="https://img.shields.io/badge/Benchmark-VLM--ExecRouterBench-ff9f1c?style=for-the-badge">
@@ -17,9 +17,9 @@
 </p>
 
 <p>
-  <a href="https://arxiv.org/abs/TBD"><strong>Paper</strong></a>
+  <a href="https://arxiv.org/pdf/2608.12127"><strong>Paper</strong></a>
   |
-  <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench"><strong>Data & Weights</strong></a>
+  <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench"><strong>Hugging Face</strong></a>
   |
   <a href="VLM-ExecRouterBench/"><strong>VLM-ExecRouterBench</strong></a>
 </p>
@@ -37,9 +37,7 @@ generation/evaluation pipeline.
 
 ## Overview
 
-<p align="center">
-  <img src="./assets/overview.png" alt="SCOPE-Router overview" width="100%">
-</p>
+![SCOPE-Router overview](assets/overview.png)
 
 ## Installation
 
@@ -52,56 +50,6 @@ conda activate scope-router
 
 pip install --upgrade pip
 pip install -e .
-```
-
-## Dataset Download
-
-Download the released router benchmark before feature extraction and training.
-The same Hugging Face repository also hosts released SCOPE-Router checkpoints
-under `weights/`.
-
-```bash
-python - <<'PY'
-from huggingface_hub import snapshot_download
-
-snapshot_download(
-    repo_id="Kirito-Lab/VLM-ExecRouterBench",
-    repo_type="dataset",
-    local_dir="data/VLM-ExecRouterBench",
-    local_dir_use_symlinks=False,
-)
-PY
-```
-
-## Released Weights
-
-Pretrained SCOPE-Router checkpoints are available in the dataset repository:
-
-```text
-weights/scope_router_vlm_execrouterbench.pkl
-weights/scope_router_vl_routerbench.pkl
-weights/scope_router_mmr_bench.pkl
-```
-
-Download them with:
-
-```bash
-python - <<'PY'
-from huggingface_hub import hf_hub_download
-
-repo_id = "Kirito-Lab/VLM-ExecRouterBench"
-for filename in [
-    "weights/scope_router_vlm_execrouterbench.pkl",
-    "weights/scope_router_vl_routerbench.pkl",
-    "weights/scope_router_mmr_bench.pkl",
-]:
-    hf_hub_download(
-        repo_id=repo_id,
-        repo_type="dataset",
-        filename=filename,
-        local_dir="data/VLM-ExecRouterBench",
-    )
-PY
 ```
 
 ## Dataset Format
@@ -134,7 +82,7 @@ for images:
 
 ```bash
 python routers/features/extract_cli.py \
-  --dataset_dir data/VLM-ExecRouterBench \
+  --dataset_dir /path/to/dataset \
   --text_encoder BAAI/bge-m3 \
   --vision_encoder facebook/dinov2-large \
   --batch_size 64
@@ -146,7 +94,7 @@ The convenience script selects a 1024-sample hybrid calibration set, builds a
 query-aware profile, and trains SCOPE-Router with CRM + RCCR:
 
 ```bash
-bash scripts/train_scope_router.sh data/VLM-ExecRouterBench
+bash scripts/train_scope_router.sh /path/to/dataset
 ```
 
 ## Runtime Gateway Integration
@@ -158,7 +106,7 @@ Start the service:
 
 ```bash
 python integrations/scope_router_service.py \
-  --router data/VLM-ExecRouterBench/weights/scope_router_vlm_execrouterbench.pkl \
+  --router /path/to/scope_router.pkl \
   --host 127.0.0.1 \
   --port 8760 \
   --text-encoder BAAI/bge-m3 \
@@ -170,10 +118,6 @@ For cc-switch, this repository includes a ready-to-adapt fork under
 mapping. For Claude Code Router, `claude-code-router/` adds a gateway-level
 `resolveScopeRouterRouteDecision` hook before provider resolution. See
 `integrations/README.md` for the request contract and config snippets.
-
-`demos/commercial_cli_router/` provides a small product-agnostic CLI demo that
-routes a prompt into local Codex, Claude Code, or opencode commands. It is
-useful for testing command-level integrations without editing those tools.
 
 ## VLM-ExecRouterBench
 
@@ -194,7 +138,6 @@ evaluation utilities used by the project. See
 | `tools/build_calibration_profile.py` | Calibration profile construction. |
 | `scripts/train_scope_router.sh` | End-to-end SCOPE-Router training script. |
 | `integrations/scope_router_service.py` | Runtime HTTP routing service for agent gateways such as cc-switch and Claude Code Router. |
-| `demos/commercial_cli_router/` | Minimal Codex, Claude Code, and opencode CLI routing demo. |
 | `cc-switch/` | Ready-to-adapt cc-switch fork with proxy-level SCOPE-Router support. |
 | `claude-code-router/` | Ready-to-adapt Claude Code Router fork with gateway-level SCOPE-Router support. |
 | `VLM-ExecRouterBench/` | Execution-oriented benchmark construction and SFT/evaluation utilities. |
@@ -202,10 +145,11 @@ evaluation utilities used by the project. See
 ## Citation
 
 ```bibtex
-@article{scope-router,
-  title  = {SCOPE-Router: Cost-Aware Open-Set VLM Routing for Execution-Oriented Tasks},
-  author = {Anonymous Authors},
-  journal = {arXiv preprint},
-  year   = {2026}
+@article{yu2026scope,
+  title   = {{SCOPE-Router}: Cost-Aware Open-Set {VLM} Routing for Execution-Oriented Tasks},
+  author  = {Tao Yu and Yifei Qu and Zhiqing Cui and Pengfei Zhou and Zhongtian Luo and Yujia Yang and Shenghua Chai and Haopeng Jin and Zhenghao Zhang and Xinming Wang and Hongzhu Yi and Wangbo Zhao and Zhenglin Wan and Yan Huang and Yeshani and Jinwen Luo and Yang You},
+  journal = {arXiv preprint arXiv:2608.12127},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2608.12127}
 }
 ```
