@@ -28,7 +28,7 @@ and packaging the resulting matrices.
 
 ## Data Generation Overview
 
-![VLM-ExecRouterBench data generation overview](assets/data_generation.png)
+![VLM-ExecRouterBench data generation overview](assets/router_datagen.png)
 
 The pipeline starts from heterogeneous source benchmarks and normalizes them
 into executable task records. Candidate models then run through a shared

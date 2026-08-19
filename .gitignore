@@ -50,6 +50,9 @@ hf_cache/
 torch_cache/
 tmp/
 
+# Large source figures converted to lightweight README assets
+VLM-ExecRouterBench/assets/router_datagen.pdf
+
 # Artifacts
 *.log
 *.csv
