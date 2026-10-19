@@ -145,10 +145,13 @@ evaluation utilities used by the project. See
 ## Citation
 
 ```bibtex
-@article{yu2026scope,
-  title   = {{SCOPE-Router}: Cost-Aware Open-Set {VLM} Routing for Execution-Oriented Tasks},
-  author  = {Tao Yu and Yifei Qu and Zhiqing Cui and Pengfei Zhou and Zhongtian Luo and Yujia Yang and Shenghua Chai and Haopeng Jin and Zhenghao Zhang and Xinming Wang and Hongzhu Yi and Wangbo Zhao and Zhenglin Wan and Yan Huang and Yeshani and Jinwen Luo and Yang You},
-  journal = {arXiv preprint arXiv:2608.12127},
-  year    = {2026}
+@misc{yu2026scoperoutercostawareopensetvlm,
+      title={SCOPE-Router: Cost-Aware Open-Set VLM Routing for Execution-Oriented Tasks}, 
+      author={Tao Yu and Yifei Qu and Zhiqing Cui and Pengfei Zhou and Zhongtian Luo and Yujia Yang and Shenghua Chai and Haopeng Jin and Zhenghao Zhang and Xinming Wang and Hongzhu Yi and Wangbo Zhao and Zhenglin Wan and Yan Huang and Yeshani and Jinwen Luo and Yang You},
+      year={2026},
+      eprint={2608.12127},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2608.12127}, 
 }
 ```
