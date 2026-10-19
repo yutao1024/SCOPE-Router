@@ -5,7 +5,7 @@
 **SCOPE-Router: Cost-Aware Open-Set VLM Routing for Execution-Oriented Tasks.**
 
 <p>
-  <a href="https://arxiv.org/pdf/2608.12127">
+  <a href="https://arxiv.org/abs/2608.12127">
     <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3A2608.12127-b31b1b?style=for-the-badge">
   </a>
   <a href="https://huggingface.co/datasets/Kirito-Lab/VLM-ExecRouterBench">
